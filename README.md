@@ -18,7 +18,7 @@ We suggest that you use IntelliJ Idea if this is your first time working with Ja
 
 ### Using Git
 
-We suggest that you fork the [GitHub repository](https://github.com/HPI-Information-Systems/DBS2-Exercises), so you can track your own changes.
+We suggest that you fork the [GitHub repository](https://github.com/HPI-Information-Systems/DBS2-Exercise), so you can track your own changes.
 If you do not intend to use Git, you can also clone or simply download the repository.
 To update your fork after the release of new exercise, you can synchronize the repository on the GitHub website.
 Alternatively, you can configure an upstream repository and fetch the upstream changes via the terminal.
