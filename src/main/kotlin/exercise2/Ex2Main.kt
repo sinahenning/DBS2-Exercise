@@ -37,7 +37,7 @@ fun main() {
     )
     println(root)
 
-    val tree: AbstractBPlusTree = BPlusTreeJava(root)
+    val tree: AbstractBPlusTree = BPlusTreeKotlin(root)
     println(tree)
 
     /*
