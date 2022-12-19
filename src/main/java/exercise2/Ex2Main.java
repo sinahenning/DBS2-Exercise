@@ -1,9 +1,13 @@
 package exercise2;
 
+<<<<<<< HEAD
 import com.sun.jdi.Value;
 import de.hpi.dbs2.exercise2.AbstractBPlusTree;
 import de.hpi.dbs2.exercise2.BPlusTreeNode;
 import de.hpi.dbs2.exercise2.ValueReference;
+=======
+import de.hpi.dbs2.exercise2.*;
+>>>>>>> cfc232f0a04e06bfbcc40d6c77397df7a8b53b51
 
 public class Ex2Main {
     public static void main(String[] args) {
@@ -55,6 +59,11 @@ public class Ex2Main {
         tree.insert(48, new ValueReference(23));
         tree.insert(49, new ValueReference(24));
         System.out.println(tree);
+
+        LeafNode leafNode = new LeafNode(4);
+        System.out.println(leafNode);
+        InnerNode innerNode = new InnerNode(4);
+        System.out.println(innerNode);
 
         /*
          * playground

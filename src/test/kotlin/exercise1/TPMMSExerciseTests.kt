@@ -1,6 +1,7 @@
 package exercise1
 
 import de.hpi.dbs2.dbms.*
+import de.hpi.dbs2.dbms.utils.RelationUtils.loadCSV
 import de.hpi.dbs2.exercise1.SortOperation
 import de.hpi.dbs2.exerciseframework.getChosenImplementation
 import kotlin.test.Test
@@ -8,10 +9,11 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class TPMMSExerciseTests {
-    private fun getImplementation(blockManager: BlockManager, sortColumnIndex: Int): SortOperation = getChosenImplementation(
-        TPMMSJava(blockManager, sortColumnIndex),
-        TPMMSKotlin(blockManager, sortColumnIndex)
-    )
+    private fun getImplementation(blockManager: BlockManager, sortColumnIndex: Int): SortOperation =
+        getChosenImplementation(
+            TPMMSJava(blockManager, sortColumnIndex),
+            TPMMSKotlin(blockManager, sortColumnIndex)
+        )
 
     @Test
     fun `TPMMS sorts test file by column 0`() {
@@ -21,16 +23,26 @@ class TPMMSExerciseTests {
             ColumnDefinition.ColumnType.DOUBLE,
         )
 
-        with(DBMS(
-            totalBlocks = 3,
-            blockCapacity = 2
-        )) {
-            val inputRelation = loadRelation(
-                blockManager, columnDefinition,
-                TPMMSExerciseTests::class.java.getResourceAsStream("input.csv")!!,
+        with(
+            DBMS(
+                totalBlocks = 3,
+                blockCapacity = 2
             )
+<<<<<<< HEAD
 
             val outputRelation = createOutputRelation(
+=======
+        ) {
+            val inputRelation = createRelation(
+                blockManager, columnDefinition,
+            ).apply {
+                loadCSV(
+                    blockManager,
+                    TPMMSExerciseTests::class.java.getResourceAsStream("input.csv")!!
+                )
+            }
+            val outputRelation = createRelation(
+>>>>>>> cfc232f0a04e06bfbcc40d6c77397df7a8b53b51
                 blockManager, columnDefinition
             )
 
@@ -42,15 +54,24 @@ class TPMMSExerciseTests {
                 assert(blockManager.usedBlocks == 0)
             }
 
-            val controlRelation = loadRelation(
-                blockManager, columnDefinition,
-                TPMMSExerciseTests::class.java.getResourceAsStream("sorted_by_col0.output.csv")!!,
-            )
+            val controlRelation = createRelation(
+                blockManager, columnDefinition
+            ).apply {
+                loadCSV(
+                    blockManager,
+                    TPMMSExerciseTests::class.java.getResourceAsStream("sorted_by_col0.output.csv")!!
+                )
+            }
             assertEquals(controlRelation.joinToString(), outputRelation.joinToString())
+<<<<<<< HEAD
             System.out.println(cost.ioCost)
             System.out.println(cost.inputCost)
             System.out.println(cost.outputCost)
             assertEquals(3*6, cost.ioCost)
+=======
+
+            assertEquals(3 * 6, cost.ioCost)
+>>>>>>> cfc232f0a04e06bfbcc40d6c77397df7a8b53b51
         }
     }
 
@@ -62,15 +83,21 @@ class TPMMSExerciseTests {
             ColumnDefinition.ColumnType.DOUBLE,
         )
 
-        with(DBMS(
-            totalBlocks = 3,
-            blockCapacity = 2
-        )) {
-            val inputRelation = loadRelation(
-                blockManager, columnDefinition,
-                TPMMSExerciseTests::class.java.getResourceAsStream("input.csv")!!,
+        with(
+            DBMS(
+                totalBlocks = 3,
+                blockCapacity = 2
             )
-            val outputRelation = createOutputRelation(
+        ) {
+            val inputRelation = createRelation(
+                blockManager, columnDefinition
+            ).apply {
+                loadCSV(
+                    blockManager,
+                    TPMMSExerciseTests::class.java.getResourceAsStream("input.csv")!!
+                )
+            }
+            val outputRelation = createRelation(
                 blockManager, columnDefinition
             )
 
@@ -82,13 +109,17 @@ class TPMMSExerciseTests {
                 assert(blockManager.usedBlocks == 0)
             }
 
-            val controlRelation = loadRelation(
-                blockManager, columnDefinition,
-                TPMMSExerciseTests::class.java.getResourceAsStream("sorted_by_col2.output.csv")!!,
-            )
+            val controlRelation = createRelation(
+                blockManager, columnDefinition
+            ).apply {
+                loadCSV(
+                    blockManager,
+                    TPMMSExerciseTests::class.java.getResourceAsStream("sorted_by_col2.output.csv")!!
+                )
+            }
             assertEquals(controlRelation.joinToString(), outputRelation.joinToString())
 
-            assertEquals(3*6, cost.ioCost)
+            assertEquals(3 * 6, cost.ioCost)
         }
     }
 
@@ -98,28 +129,31 @@ class TPMMSExerciseTests {
             ColumnDefinition.ColumnType.INTEGER,
         )
 
-        with(DBMS(
-            totalBlocks = 3,
-            blockCapacity = 2
-        )) {
+        with(
+            DBMS(
+                totalBlocks = 3,
+                blockCapacity = 2
+            )
+        ) {
             val inputRelation = object : Relation {
-                val blocks = Array(13){
+                val blocks = Array(13) {
                     blockManager.allocate(false)
                 }
-                override val estimatedSize: Int = blocks.size
 
                 override val columns: ColumnDefinition = columnDefinition
-                override fun createTuple(): Tuple = TODO()
+                override fun estimatedBlockCount(): Int = blocks.size
+
                 override fun clear() = TODO()
                 override fun iterator(): Iterator<Block> = blocks.iterator()
+                override fun getBlockOutput(): BlockOutput = TODO()
             }
-            val outputRelation = createOutputRelation(
+            val outputRelation = createRelation(
                 blockManager, columnDefinition
             )
 
             val sortOperation = getImplementation(blockManager, 0)
 
-            assertFailsWith<SortOperation.RelationSizeExceedsCapacityException> {
+            assertFailsWith<Operation.RelationSizeExceedsCapacityException> {
                 sortOperation.execute(inputRelation, outputRelation)
             }
         }

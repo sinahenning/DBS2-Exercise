@@ -2,7 +2,6 @@ package exercise1;
 
 import de.hpi.dbs2.ChosenImplementation;
 import de.hpi.dbs2.dbms.BlockManager;
-import de.hpi.dbs2.dbms.BlockOutput;
 import de.hpi.dbs2.dbms.Relation;
 import de.hpi.dbs2.dbms.Block;
 import de.hpi.dbs2.dbms.Tuple;
@@ -20,11 +19,15 @@ import java.util.List;
 
 @ChosenImplementation(true)
 public class TPMMSJava extends SortOperation {
-    public TPMMSJava(@NotNull BlockManager manager, int sortColumnIndex) {
+    public TPMMSJava(
+        @NotNull BlockManager manager,
+        int sortColumnIndex
+    ) {
         super(manager, sortColumnIndex);
     }
 
     @Override
+<<<<<<< HEAD
     public int estimatedIOCost(@NotNull Relation relation) {
         return relation.getEstimatedSize() * 2;
         //throw new UnsupportedOperationException("TODO");
@@ -150,5 +153,19 @@ public class TPMMSJava extends SortOperation {
         comparisonList.add(tupleList);
         manager.release(subPartedPairList.get(0).getFirst(), false);
         subPartedPairList.remove(0);
+=======
+    public int estimatedIOCost(
+        @NotNull Relation inputRelation
+    ) {
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @Override
+    public void sort(
+        @NotNull Relation inputRelation,
+        @NotNull Relation outputRelation
+    ) {
+        throw new UnsupportedOperationException("TODO");
+>>>>>>> cfc232f0a04e06bfbcc40d6c77397df7a8b53b51
     }
 }
