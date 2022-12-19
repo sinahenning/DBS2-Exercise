@@ -29,6 +29,7 @@ class TPMMSExerciseTests {
                 blockManager, columnDefinition,
                 TPMMSExerciseTests::class.java.getResourceAsStream("input.csv")!!,
             )
+
             val outputRelation = createOutputRelation(
                 blockManager, columnDefinition
             )
@@ -46,7 +47,9 @@ class TPMMSExerciseTests {
                 TPMMSExerciseTests::class.java.getResourceAsStream("sorted_by_col0.output.csv")!!,
             )
             assertEquals(controlRelation.joinToString(), outputRelation.joinToString())
-
+            System.out.println(cost.ioCost)
+            System.out.println(cost.inputCost)
+            System.out.println(cost.outputCost)
             assertEquals(3*6, cost.ioCost)
         }
     }

@@ -1,5 +1,6 @@
 package exercise2;
 
+import com.sun.jdi.Value;
 import de.hpi.dbs2.exercise2.AbstractBPlusTree;
 import de.hpi.dbs2.exercise2.BPlusTreeNode;
 import de.hpi.dbs2.exercise2.ValueReference;
@@ -42,8 +43,17 @@ public class Ex2Main {
             }
         );
         System.out.println(root);
-
         AbstractBPlusTree tree = new BPlusTreeJava(root);
+        tree.insert(12, new ValueReference(15));
+        tree.insert(10, new ValueReference(16));
+        tree.insert(18, new ValueReference(17));
+        tree.insert(40, new ValueReference(18));
+        tree.insert(24, new ValueReference(19));
+        tree.insert(25, new ValueReference(20));
+        tree.insert(38, new ValueReference(21));
+        tree.insert(39, new ValueReference(22));
+        tree.insert(48, new ValueReference(23));
+        tree.insert(49, new ValueReference(24));
         System.out.println(tree);
 
         /*

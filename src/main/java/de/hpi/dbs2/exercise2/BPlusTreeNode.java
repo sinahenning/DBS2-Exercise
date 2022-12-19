@@ -90,7 +90,7 @@ public sealed abstract class BPlusTreeNode<V> permits InnerNode, LeafNode {
 
     /**
      * @return A stream of all nodes in this subtree depth-first
-     * starting with the left-most LeafNode and ending with this node.
+     *      * starting with the left-most LeafNode and ending with this node.
      */
     public abstract Stream<BPlusTreeNode<?>> getDepthFirstNodeStream();
 
